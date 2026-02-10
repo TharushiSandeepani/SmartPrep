@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # smartprep
 
 A new Flutter project.
@@ -18,4 +17,4 @@ samples, guidance on mobile development, and a full API reference.
 =======
 # SmartPrep
 SmartPrep: An intelligent study companion featuring adaptive quizzes, personalized study planners, and real-time performance analytics.
->>>>>>> e48d11941bd0e010dd0423a10cf7aac6f0f41d3a
+
