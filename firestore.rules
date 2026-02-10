@@ -1,0 +1,59 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+    // Helper: Check if user is authenticated
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // 1. Users Collection
+    // Users can only read/write their own profile and subcollections (like tasks)
+    match /users/{userId}/{document=**} {
+      allow read, write: if isSignedIn() && request.auth.uid == userId;
+    }
+
+    // 2. Subjects
+    // All signed-in users can view subjects. 
+    // Allowing write for demo purposes (Create Quiz flow).
+    match /subjects/{subjectId} {
+      allow read, write: if isSignedIn();
+    }
+
+    // 3. Quizzes
+    // Allow signed-in users to create and view quizzes.
+    match /quizzes/{quizId} {
+      allow read, write: if isSignedIn();
+      
+      // Allow access to questions subcollection if nested
+      match /questions/{questionId} {
+        allow read, write: if isSignedIn();
+      }
+    }
+
+    // 4. Questions (Global or Collection Group)
+    // Required for the adaptive quiz service to find questions across all quizzes
+    match /{path=**}/questions/{questionId} {
+      allow read: if isSignedIn();
+    }
+
+    // 5. Quiz Results
+    // Users can write their own results and read their own history.
+    match /quizResults/{resultId} {
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    // 6. Study Preferences
+    // Users can read/write their own preferences document.
+    match /studyPreferences/{userId} {
+      allow read, write: if isSignedIn() && request.auth.uid == userId;
+    }
+
+    // 7. Notifications Log
+    match /notifications/{notifId} {
+       allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+       allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+  }
+}

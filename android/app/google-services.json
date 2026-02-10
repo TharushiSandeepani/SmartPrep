@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "911867035497",
+    "project_id": "smartprep-4369b",
+    "storage_bucket": "smartprep-4369b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911867035497:android:fce018392d7d976e8707f8",
+        "android_client_info": {
+          "package_name": "com.example.smartprep"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4TzknoyKkiLBURvTYFKYvKaBMVQsU7bg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
